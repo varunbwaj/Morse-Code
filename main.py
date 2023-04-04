@@ -1,6 +1,6 @@
 import function as f
 import tkinter as tk
-import googletrans as gt
+import googletrans
 from googletrans import Translator
 
 translator = Translator()
