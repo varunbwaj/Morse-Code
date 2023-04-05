@@ -1,5 +1,6 @@
 import function as f
 import tkinter as tk
+from tkinter import ttk
 import googletrans
 from googletrans import Translator
 
@@ -27,10 +28,13 @@ while True:
 # below code is for GUI
 
 
-def morse(morse):                           #function called when 'Morse → AlphaNumeric' button is pressed
+def morse(morse):
+    global DEST                           #function called when 'Morse → AlphaNumeric' button is pressed
     output_text.delete('1.0', tk.END)       #Clear output section
     alpha = f.morse_to_alphanumeric(morse)  #calling the conversion function
-    output_text.insert(1.0, alpha)          #Display the output
+    alpha_text = translator.translate(text=alpha,dest=DEST).text
+    print(alpha_text)
+    output_text.insert(1.0, alpha_text)          #Display the output
 
 
 def alpha(alpha):                          #function called when 'AlphaNumeric → Morse' button is pressed
@@ -42,16 +46,32 @@ def alpha(alpha):                          #function called when 'AlphaNumeric �
 
 def play(alpha):                            #function called when 'Play Morse' button is pressed
     output_text.delete('1.0', tk.END)       #Clear output section
-    morse = f.alpha_to_morse(alpha.upper()) #calling the conversion function
+    alpha_text = translator.translate(text=alpha,dest="en")
+    morse = f.alpha_to_morse((alpha_text.text).upper()) #calling the conversion function
     output_text.insert(1.0, morse)          #Display the output
     f.morse_play(morse)                     #calling the morse play function
 
+# languages_list = ["English","Bengali","Gujarati","Hindi","Kannada","Malayalam",
+#                   "Marati","Punjabi","Tamil","Telugu","Urdu"]
 
+languages_dict = {"en":"English","bn": "Bengali", 
+                  "gu":"Gujarati", "hi": "Hindi",
+                  "kn": "Kannada", "ml": "Malayalam",
+                  "mr": "Marathi", "pa": "Punjabi",
+                  "ta": "Tamil",  "te": "Telugu",
+                  "ur" :"Urdu"}
+
+DEST = "en"
+def UpdateDEST(event):
+    global languages_dict
+    global DEST
+    DEST = [k for k,v in languages_dict.items() if clicked.get()==v][0]
+    # print(DEST,clicked.get())
 #create the tkinter window
 root = tk.Tk()
 
 #created GUI widgets
-canvas = tk.Canvas(root, height=650, width=750)
+canvas = tk.Canvas(root, height=800, width=800)
 head_label = tk.Label(canvas, text='Morse Converter', font=('verdana', 25))
 notice_frame = tk.Frame(canvas, height=200, width=550, bd=10, bg='#a0a0a0')
 input_notice1 = tk.Label(notice_frame, text='The input is accepted in Morse or Alpha-Numeric.', bg='#a0a0a0',
@@ -69,7 +89,9 @@ alpha_morse_button = tk.Button(canvas, text='AlphaNumeric → Morse', font=('ver
                                command=lambda: alpha(input_entry.get()))
 play_button = tk.Button(canvas, text='Play\nMorse', font=('verdana', 15), height=3,
                         command=lambda: play(input_entry.get()))
-
+clicked = tk.StringVar()
+clicked.set(list(languages_dict.values())[0])
+dropDownBox = tk.OptionMenu(canvas,clicked, *list(languages_dict.values()),command=UpdateDEST)
 
 #placing the GUI widgets
 canvas.pack()
@@ -84,5 +106,6 @@ output_text.place(y=275, x=10)
 alpha_morse_button.place(y=520, x=375)
 morse_alpha_button.place(y=565, x=375)
 play_button.place(y=520, x=645)
+dropDownBox.place(y=620, x=42)
 
 root.mainloop()
