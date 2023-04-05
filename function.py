@@ -1,21 +1,21 @@
 import simpleaudio as sa  # importing the audio playing library
 
 # Dictionary of alphanumeric and their respective morse code
-code = { 'A':'.-', 'B':'-...',
-        'C':'-.-.', 'D':'-..', 'E':'.',
-        'F':'..-.', 'G':'--.', 'H':'....',
-        'I':'..', 'J':'.---', 'K':'-.-',
-        'L':'.-..', 'M':'--', 'N':'-.',
-        'O':'---', 'P':'.--.', 'Q':'--.-',
-        'R':'.-.', 'S':'...', 'T':'-',
-        'U':'..-', 'V':'...-', 'W':'.--',
-        'X':'-..-', 'Y':'-.--', 'Z':'--..',
-        '1':'.----', '2':'..---', '3':'...--',
-        '4':'....-', '5':'.....', '6':'-....',
-        '7':'--...', '8':'---..', '9':'----.',
-        '0':'-----', ', ':'--..--', '.':'.-.-.-',
-        '?':'..--..', '/':'-..-.', '-':'-....-',
-        '(':'-.--.', ')':'-.--.-'}
+code = {'A': '.-', 'B': '-...',
+        'C': '-.-.', 'D': '-..', 'E': '.',
+        'F': '..-.', 'G': '--.', 'H': '....',
+        'I': '..', 'J': '.---', 'K': '-.-',
+        'L': '.-..', 'M': '--', 'N': '-.',
+        'O': '---', 'P': '.--.', 'Q': '--.-',
+        'R': '.-.', 'S': '...', 'T': '-',
+        'U': '..-', 'V': '...-', 'W': '.--',
+        'X': '-..-', 'Y': '-.--', 'Z': '--..',
+        '1': '.----', '2': '..---', '3': '...--',
+        '4': '....-', '5': '.....', '6': '-....',
+        '7': '--...', '8': '---..', '9': '----.',
+        '0': '-----', ', ': '--..--', '.': '.-.-.-',
+        '?': '..--..', '/': '-..-.', '-': '-....-',
+         '(': '-.--.', ')': '-.--.-'}
 
 # Tweak the above for empty space
 
@@ -25,80 +25,66 @@ alpha_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', '
               '9', ' ']
 
 
-def morse_to_alphanumeric(morse):
-    check = True
-    # check weather all character of the input is morse character ie. '.' and '-'
-    for i in morse:
-        if i != '.' and i != '-' and i != ' ':
-            check = False
+def morse_to_alphanumeric(message):
+    # extra space added at the end to access the
+    # last morse code
+    message += ' '
+    for i in message:
+        if i!=" " or i!="." or i!="-":
+            return "Enter Valid Morse Code"
+    decipher = ''
+    citext = ''
+    for letter in message.upper():
 
-    if check:                       # if the check is passes then the conversion is executed
-        # this function return the respective character of the part of morse
-        def morse_to_char(morse):
-            global code
-            for i in code:
-                if code[i] == morse:
-                    return i
+        # checks for space
+        if (letter != ' '):
 
-        k = 0
-        message = ''
-        # in this while loop the construction of the message takes place, converting each morse part to character
-        # and concatenate to the message string
-        while True:
-            space = False
-            code = ''
-            # in this for loop the morse parts are separated from the input string
-            for i in range(len(morse)):
-                if k > len(morse) - 1:
-                    break
-                if morse[k] == ' ':
-                    if morse[k + 1] == ' ' and k <= len(morse):
-                        k += 1
-                        space = True
-                    k += 1
-                    break
-                code += morse[k]
-                k += 1
+            # counter to keep track of space
+            i = 0
 
-            # here the morse part is converted to character and added to the message string
-            message += morse_to_char(code)
-            if k >= len(morse) - 1:
-                break
-            if space:
-                message += ' '
-        return message
+            # storing morse code of a single character
+            citext += letter
 
-    # return following statement if check fails
-    return 'Enter Valid Morse Code'
+        # in case of space
+        else:
+            # if i = 1 that indicates a new character
+            i += 1
+
+            # if i = 2 that indicates a new word
+            if i == 2:
+
+                # adding space to separate words
+                decipher += ' '
+            else:
+
+                # accessing the keys using their values
+                # (reverse of encryption)
+                decipher += list(code.keys())[
+                    list(code.values()).index(citext)]
+                citext = ''
+
+    return decipher
 
 
 def alpha_to_morse(message):
-    check = True
-    # check weather all character of the input is alphanumeric
     for i in message:
-        x = False
-        for j in alpha_list:
-            if i == j:
-                x = True
-        if not x:
-            check = False
-            break
+        if i not in alpha_list:
+            return "Enter Valid Text"
+    cipher = ''
+    message = message.upper()
+    for letter in message:
+        if letter != ' ':
 
-    if check:
-        morse = ''
-        index = 0
-        for i in message:           # take each character of the message and do the conversion process
-            for j in code:          # get the morse value of the character from the code dictionary
-                if i == j:
-                    morse += code[j] # add the morse part to the morse string
-                    break
-            morse += ' ' if index < len(message) - 1 else ''
-            index += 1
-        return morse
-
-    # return following statement if check fails
-    return 'Only Alphabets and Numbers are accepted'
-
+            # Looks up the dictionary and adds the
+            # corresponding morse code
+            # along with a space to separate
+            # morse codes for different characters
+            cipher += code[letter] + ' '
+        else:
+            # 1 space indicates different characters
+            # and 2 indicates different words
+            cipher += ' '
+    return cipher
 
 # importing the sound files
 dat_sound = sa.WaveObject.from_wave_file("dat.wav")
