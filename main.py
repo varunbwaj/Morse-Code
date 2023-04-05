@@ -35,9 +35,8 @@ def morse(morse):                           #function called when 'Morse → Alp
 
 def alpha(alpha):                          #function called when 'AlphaNumeric → Morse' button is pressed
     output_text.delete('1.0', tk.END)       #Clear output section
-    alpha = translator.translate(text=alpha)     # Translating the input to the preferred language 
-    # print(type(alpha))
-    morse = f.alpha_to_morse(alpha.upper()) #calling the conversion function
+    alpha_text = translator.translate(text=alpha,dest="en")# Translating the input to the preferred language 
+    morse = f.alpha_to_morse((alpha_text.text).upper()) #calling the conversion function
     output_text.insert(1.0, morse)          #Display the output
 
 
