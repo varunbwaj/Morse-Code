@@ -1,6 +1,6 @@
 import function as f
 import tkinter as tk
-import googletrans as gt
+import googletrans
 from googletrans import Translator
 
 translator = Translator()
@@ -35,6 +35,8 @@ def morse(morse):                           #function called when 'Morse → Alp
 
 def alpha(alpha):                          #function called when 'AlphaNumeric → Morse' button is pressed
     output_text.delete('1.0', tk.END)       #Clear output section
+    alpha = translator.translate(text=alpha)     # Translating the input to the preferred language 
+    # print(type(alpha))
     morse = f.alpha_to_morse(alpha.upper()) #calling the conversion function
     output_text.insert(1.0, morse)          #Display the output
 
