@@ -4,29 +4,11 @@ from tkinter import ttk
 import googletrans
 from googletrans import Translator
 
+# Global Objects
 translator = Translator()
-
-# if you want to use the console version use the below code and comment out the rest
-'''
-while True:
-    choice = int(input('1. AlphaNumeric to Morse\n2. Morse to AlphaNumeric'))
-    if choice == 1:
-        message = str(input('Enter the messsage: '))
-        morse = f.alpha_to_morse(message.upper())
-        print('Morse Code: ', morse)
-        choice = input("Play the morse (y/n)")
-        if choice == 'y' or choice == 'Y':
-            f.morse_play(morse)
-
-    if choice == 2:
-        morse = input("Enter the morse code: ")
-        message = f.morse_to_alphanumeric(morse)
-        print(message)  
-'''
-
+DEST = "en"
 
 # below code is for GUI
-
 
 def morse(morse):
     global DEST                           #function called when 'Morse → AlphaNumeric' button is pressed
@@ -51,8 +33,6 @@ def play(alpha):                            #function called when 'Play Morse' b
     output_text.insert(1.0, morse)          #Display the output
     f.morse_play(morse)                     #calling the morse play function
 
-# languages_list = ["English","Bengali","Gujarati","Hindi","Kannada","Malayalam",
-#                   "Marati","Punjabi","Tamil","Telugu","Urdu"]
 
 languages_dict = {"en":"English","bn": "Bengali", 
                   "gu":"Gujarati", "hi": "Hindi",
@@ -61,12 +41,11 @@ languages_dict = {"en":"English","bn": "Bengali",
                   "ta": "Tamil",  "te": "Telugu",
                   "ur" :"Urdu"}
 
-DEST = "en"
 def UpdateDEST(event):
     global languages_dict
     global DEST
     DEST = [k for k,v in languages_dict.items() if clicked.get()==v][0]
-    # print(DEST,clicked.get())
+
 #create the tkinter window
 root = tk.Tk()
 
