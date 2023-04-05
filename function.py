@@ -30,7 +30,7 @@ def morse_to_alphanumeric(message):
     # last morse code
     message += ' '
     for i in message:
-        if i!=" " or i!="." or i!="-":
+        if i!=" " and i!="." and i!="-":
             return "Enter Valid Morse Code"
     decipher = ''
     citext = ''
