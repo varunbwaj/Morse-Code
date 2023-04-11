@@ -75,7 +75,7 @@ output_label = tk.Label(canvas, text='Output ↓', font=('Helvetica', 20))
 output_text = tk.Text(canvas, height=5, width=55, borderwidth=1, font=('Helvetica', 15))
 
 morse_alpha_button = tk.Button(canvas, text='Morse → AlphaNumeric', font=('Helvetica', 15),
-                               command=lambda: morse(input_entry.get()))
+                                command=lambda: morse(input_entry.get()))
 
 alpha_morse_button = tk.Button(canvas, text='AlphaNumeric → Morse', font=('Helvetica', 15),
                                command=lambda: alpha(input_entry.get()))
