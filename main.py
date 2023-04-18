@@ -55,7 +55,7 @@ clicked.set(list(languages_dict.values())[0])
 #Creating GUI widgets
 canvas = tk.Canvas(root, height=700, width=750)
 
-head_label = tk.Label(canvas, text='Morse Converter', font=('Times New Roman', 30))
+head_label = tk.Label(canvas, text='Morse Code Converter', font=('Times New Roman', 30))
 
 notice_frame = tk.Frame(canvas, height=200, width=550, bd=10, bg='#a0a0a0')
 

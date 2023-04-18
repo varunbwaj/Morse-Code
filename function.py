@@ -15,7 +15,7 @@ code = {'A': '.-', 'B': '-...',
         '7': '--...', '8': '---..', '9': '----.',
         '0': '-----', ', ': '--..--', '.': '.-.-.-',
         '?': '..--..', '/': '-..-.', '-': '-....-',
-         '(': '-.--.', ')': '-.--.-'}
+        '(': '-.--.', ')': '-.--.-'}
 
 # list of alphanumeric for check
 alpha_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
@@ -28,14 +28,14 @@ def morse_to_alphanumeric(message):
     # last morse code
     message += ' '
     for i in message:
-        if i!=" " and i!="." and i!="-":
+        if i != " " and i != "." and i != "-":
             return "Enter Valid Morse Code"
     decipher = ''
     citext = ''
     for letter in message.upper():
 
         # checks for space
-        if (letter != ' '):
+        if letter != ' ':
 
             # counter to keep track of space
             i = 0
@@ -83,6 +83,7 @@ def alpha_to_morse(message):
             # and 2 indicates different words
             cipher += ' '
     return cipher
+
 
 # importing the sound files
 dat_sound = sa.WaveObject.from_wave_file("dat.wav")
