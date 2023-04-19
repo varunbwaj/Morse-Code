@@ -1,5 +1,6 @@
 import simpleaudio as sa  # importing the audio playing library
-
+from gtts import gTTS
+import  os
 # Dictionary of alphanumeric and their respective morse code
 code = {'A': '.-', 'B': '-...',
         'C': '-.-.', 'D': '-..', 'E': '.',
@@ -83,6 +84,18 @@ def alpha_to_morse(message):
             # and 2 indicates different words
             cipher += ' '
     return cipher
+
+def speech(text):
+    language = "en"
+    for i in text:
+        if i not in alpha_list:
+            obj = gTTS(text="Invalid Text", lang=language,slow=False)
+            obj.save("speech.mp3")
+            os.system("afplay speech.mp3")
+            return
+    obj = gTTS(text=text, lang=language, slow=False)
+    obj.save("speech.mp3")
+    os.system("afplay speech.mp3")
 
 
 # importing the sound files

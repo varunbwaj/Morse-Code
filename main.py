@@ -33,6 +33,9 @@ def play(alpha):                            #function called when 'Play Morse' b
     output_text.insert(1.0, morse)          #Display the output
     f.morse_play(morse)                     #calling the morse play function
 
+def speech_main(text):
+    alpha = f.morse_to_alphanumeric(text)
+    f.speech(alpha)
 
 languages_dict = {"en":"English","bn": "Bengali", 
                   "gu":"Gujarati", "hi": "Hindi",
@@ -82,6 +85,8 @@ alpha_morse_button = tk.Button(canvas, text='AlphaNumeric → Morse', font=('Hel
 
 play_button = tk.Button(canvas, text='Play\nMorse', font=('Helvetica', 15), height=3,
                         command=lambda: play(input_entry.get()))
+speech_button = tk.Button(canvas, text='Play\nText', font=('Helvetica', 15), height=3,
+                        command=lambda: speech_main(input_entry.get()))
 
 notice_frame_1 = tk.Frame(canvas, height=80, width=245, bd=10, bg='#a0a0a0')
 
@@ -105,6 +110,7 @@ output_text.place(y=265, x=25)
 alpha_morse_button.place(y=520, x=75)
 morse_alpha_button.place(y=565, x=75)
 play_button.place(y=525, x=350)
+speech_button.place(y=525, x=450)
 input_label_1.place(y=380,x=15)
 notice_frame_1.place(y=420,x=12)
 input_notice3.pack()
