@@ -34,8 +34,17 @@ def play(alpha):                            #function called when 'Play Morse' b
     f.morse_play(morse)                     #calling the morse play function
 
 def speech_main(text):
-    alpha = f.morse_to_alphanumeric(text)
-    f.speech(alpha)
+    isAlpha = True
+    for i in text:
+        if i=='.' or i=='-':
+            isAlpha = False
+            break
+    if isAlpha:
+        alpha = translator.translate(text=text,dest="en").text
+        f.speech(alpha)
+    else:
+        alpha = f.morse_to_alphanumeric(text)
+        f.speech(alpha)
 
 languages_dict = {"en":"English","bn": "Bengali", 
                   "gu":"Gujarati", "hi": "Hindi",

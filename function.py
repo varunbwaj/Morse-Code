@@ -87,16 +87,9 @@ def alpha_to_morse(message):
 
 def speech(text):
     language = "en"
-    for i in text:
-        if i not in alpha_list:
-            obj = gTTS(text="Invalid Text", lang=language,slow=False)
-            obj.save("speech.mp3")
-            os.system("afplay speech.mp3")
-            return
     obj = gTTS(text=text, lang=language, slow=False)
     obj.save("speech.mp3")
     os.system("afplay speech.mp3")
-
 
 # importing the sound files
 dat_sound = sa.WaveObject.from_wave_file("dat.wav")
