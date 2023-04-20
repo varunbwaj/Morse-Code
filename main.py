@@ -28,10 +28,11 @@ def alpha(alpha):                          #function called when 'AlphaNumeric â
 
 def play(alpha):                            #function called when 'Play Morse' button is pressed
     output_text.delete('1.0', tk.END)       #Clear output section
-    alpha_text = translator.translate(text=alpha,dest="en")
+    alpha_text = translator.translate(text=alpha,dest="en") # Translate the regional language to english for conversion
     morse = f.alpha_to_morse((alpha_text.text).upper()) #calling the conversion function
     output_text.insert(1.0, morse)          #Display the output
     f.morse_play(morse)                     #calling the morse play function
+
 
 def speech_main(text):
     isAlpha = True
@@ -44,6 +45,8 @@ def speech_main(text):
         f.speech(alpha)
     else:
         alpha = f.morse_to_alphanumeric(text)
+        output_text.delete('1.0',tk.END)
+        output_text.insert(1.0, alpha) 
         f.speech(alpha)
 
 languages_dict = {"en":"English","bn": "Bengali", 

@@ -27,15 +27,17 @@ alpha_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', '
 def morse_to_alphanumeric(message):
     # extra space added at the end to access the
     # last morse code
+    # We have tweaked this to work for empty spaces at the end so that the last character is unaltered and translated properly
     message += ' '
+    # Checking if the given message is in morse code:
     for i in message:
         if i != " " and i != "." and i != "-":
             return "Enter Valid Morse Code"
-    decipher = ''
-    citext = ''
+    # Two strings to decode the morse code to english
+    decipher = '' # Final String output
+    citext = ''  # Morse string for each letter
     for letter in message.upper():
-
-        # checks for space
+        # Checks if the letter is a space or not: if it's not adds morse characters till a space
         if letter != ' ':
 
             # counter to keep track of space
@@ -44,45 +46,48 @@ def morse_to_alphanumeric(message):
             # storing morse code of a single character
             citext += letter
 
-        # in case of space
+        # in case of spaces
         else:
-            # if i = 1 that indicates a new character
+            # if i=1 a single character exists
             i += 1
 
-            # if i = 2 that indicates a new word
+            # if two empty spaces indicate a new word
             if i == 2:
-
-                # adding space to separate words
+                # adding space to separate the words
                 decipher += ' '
             else:
 
                 # accessing the keys using their values
-                # (reverse of encryption)
+
                 decipher += list(code.keys())[
                     list(code.values()).index(citext)]
+                
+                # Intializing the citext back to empty string for another iteration
                 citext = ''
-
+# returning the string:
     return decipher
 
 
 def alpha_to_morse(message):
+    # Checking if message's characters are alphabets
     for i in message:
         if i not in alpha_list:
             return "Enter Valid Text"
+    # Initialzing an empty string to return morse code
     cipher = ''
+    # Converting all the characters to capital letters, because morse code is not case-sensitive:
     message = message.upper()
+
     for letter in message:
         if letter != ' ':
-
-            # Looks up the dictionary and adds the
-            # corresponding morse code
-            # along with a space to separate
-            # morse codes for different characters
-            cipher += code[letter] + ' '
+            # Gets the value from the key obtained by the letter variable
+            cipher += code[letter] + ' ' # Adds a space to signify the end of a character in morse.
         else:
             # 1 space indicates different characters
             # and 2 indicates different words
             cipher += ' '
+            # In the case of a different word another additional space is added to the previous space of 
+            # the last characters
     return cipher
 
 def speech(text):
@@ -90,7 +95,7 @@ def speech(text):
     obj = gTTS(text=text, lang=language, slow=False)
     obj.save("speech.mp3")
     os.system("afplay speech.mp3")
-
+    
 # importing the sound files
 dat_sound = sa.WaveObject.from_wave_file("dat.wav")
 dit_sound = sa.WaveObject.from_wave_file("dit.wav")
