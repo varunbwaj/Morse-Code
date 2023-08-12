@@ -106,6 +106,9 @@ def speech(text):
 =======
 
 
+<<<<<<< HEAD
+>>>>>>> parent of 944f05f (Text to speech complete)
+=======
 >>>>>>> parent of 944f05f (Text to speech complete)
 # importing the sound files
 dat_sound = sa.WaveObject.from_wave_file("dat.wav")

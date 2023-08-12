@@ -36,6 +36,7 @@ def play(alpha):                            #function called when 'Play Morse' b
 
 def speech_main(text):
 <<<<<<< HEAD
+<<<<<<< HEAD
     isAlpha = True
     for i in text:
         if i=='.' or i=='-':
@@ -49,6 +50,10 @@ def speech_main(text):
         output_text.delete('1.0',tk.END)
         output_text.insert(1.0, alpha) 
         f.speech(alpha)
+=======
+    alpha = f.morse_to_alphanumeric(text)
+    f.speech(alpha)
+>>>>>>> parent of 944f05f (Text to speech complete)
 =======
     alpha = f.morse_to_alphanumeric(text)
     f.speech(alpha)
