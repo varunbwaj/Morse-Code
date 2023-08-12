@@ -1,4 +1,3 @@
-#Libraries for the function implemented below
 import simpleaudio as sa  # importing the audio playing library
 from gtts import gTTS
 import  os
